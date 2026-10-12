@@ -1,0 +1,26 @@
+# SQL Server database files
+*.mdf
+*.ldf
+*.ndf
+*.bak
+*.trn
+
+# Visual Studio / SQL projects
+.vs/
+bin/
+obj/
+*.suo
+*.user
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
