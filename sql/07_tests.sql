@@ -94,22 +94,25 @@ BEGIN TRY
     DELETE FROM dbo.Hersteller
     WHERE herstellername = 'Dell';
 
-    -- Falls das DELETE unerwartet funktioniert:
-    PRINT 'TEST 2 FEHLGESCHLAGEN: Referenzierter Hersteller konnte gelöscht werden.';
+    -- Falls DELETE unerwartet funktioniert:
+    ;THROW 51020, 
+        'TEST 2 FEHLGESCHLAGEN: Referenzierter Hersteller konnte gelöscht werden.',
+        1;
 
-    ROLLBACK TRANSACTION;
 END TRY
 
 BEGIN CATCH
+    -- Teständerungen zurücksetzen
     IF @@TRANCOUNT > 0
         ROLLBACK TRANSACTION;
-
+    -- Erwartete Fremdschlüsselverletzung
     IF ERROR_NUMBER() = 547
     BEGIN
         PRINT 'TEST 2 BESTANDEN: Fremdschlüssel verhindert das Löschen eines referenzierten Herstellers.';
     END
     ELSE
     BEGIN
+        -- Unerwarteten Fehler weitergeben
         ;THROW;
     END;
 END CATCH;
@@ -342,11 +345,3 @@ BEGIN CATCH
     THROW;
 END CATCH;
 GO
-----------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
