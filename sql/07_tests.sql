@@ -130,7 +130,9 @@ BEGIN TRY
     SET raum_id = 9999
     WHERE geraetenummer = 'CDT-331';
 
-    PRINT 'TEST 3 FEHLGESCHLAGEN: Ungültige Raumzuordnung wurde akzeptiert.';
+    ;THROW 51003,
+    'TEST 3 FEHLGESCHLAGEN: Ungültige Raumzuordnung wurde akzeptiert.',
+    1;
 
     ROLLBACK TRANSACTION;
 END TRY
@@ -220,7 +222,6 @@ CREATE TABLE #TestDefekteGeraete (
 INSERT INTO #TestDefekteGeraete
 EXEC dbo.GetDefekteGeraete;
 
-
 -- Prüfen, ob Ergebnisse vorhanden sind
 IF NOT EXISTS (
     SELECT 1
@@ -231,7 +232,6 @@ BEGIN
         'TEST 5 FEHLGESCHLAGEN: Die Abfrage lieferte keine Ergebnisse.',
         1;
 END;
-
 
 -- Prüfen, ob ausschließlich defekte Geräte ausgegeben werden
 IF EXISTS (
@@ -270,7 +270,6 @@ SELECT @DefektZustandId = zustand_id
 FROM dbo.Geraetezustand
 WHERE bezeichnung = 'defekt';
 
-
 -- Testvoraussetzungen prüfen
 IF @OriginalZustandId IS NULL
 BEGIN
@@ -292,8 +291,6 @@ BEGIN
         'TEST 6 kann nicht durchgeführt werden: Das Gerät ist bereits defekt.',
         1;
 END;
-
-
 BEGIN TRY
     BEGIN TRANSACTION;
 
@@ -316,8 +313,6 @@ BEGIN TRY
             'TEST 6 FEHLGESCHLAGEN: Der Gerätezustand wurde nicht korrekt geändert.',
             1;
     END;
-
-    -- Teständerung zurücksetzen
     ROLLBACK TRANSACTION;
 
     -- Prüfen, ob der ursprüngliche Zustand wiederhergestellt wurde
@@ -341,7 +336,6 @@ END TRY
 BEGIN CATCH
     IF @@TRANCOUNT > 0
         ROLLBACK TRANSACTION;
-
     THROW;
 END CATCH;
 GO

@@ -81,8 +81,8 @@ BEGIN
 END;
 GO
 
---Test
-EXEC dbo.GetGeraeteInReparatur;
+--Test:
+--EXEC dbo.GetGeraeteInReparatur;
 
 -- -------------------------------------------------------------
 -- Auswertung 4. Welche Geräte stammen von einem bestimmten Hersteller?
@@ -108,7 +108,7 @@ BEGIN
 END;
 GO
 
---Test 
+--Test: 
 --EXEC dbo.GetGeraeteNachHersteller @Herstellername = 'Dell';
 
 
@@ -144,13 +144,12 @@ BEGIN
 END;
 GO
 
---Test 
-EXEC dbo.GetPCsNachRaum
-    @Raumbezeichnung = 'Lager';
-GO
+--Test: 
+--EXEC dbo.GetPCsNachRaum @Raumbezeichnung = 'Lager';
+
 
 -- -------------------------------------------------------------
--- Auswertung 6. Welche PCs befinden sich in einem bestimmten Schulungsraum?
+-- Auswertung 6. Anzahl der Geräte je Schulungsraum.
 -- -------------------------------------------------------------
 CREATE OR ALTER PROCEDURE dbo.GetAnzahlGeraeteJeRaum
 AS
@@ -168,9 +167,8 @@ BEGIN
 END;
 GO
 
---Test 
-EXEC dbo.GetAnzahlGeraeteJeRaum;
-GO
+--Test: 
+--EXEC dbo.GetAnzahlGeraeteJeRaum;
 
 -- -------------------------------------------------------------
 -- Auswertung 7. Anzahl der Geräte je Gerätetyp
@@ -195,8 +193,7 @@ END;
 GO
 
 --Test 
-EXEC dbo.GetAnzahlGeraeteJeTyp;
-GO
+--EXEC dbo.GetAnzahlGeraeteJeTyp;
 
 -- -------------------------------------------------------------
 -- Auswertung 8. Anzahl defekter Geräte je Schulungsraum.
@@ -228,8 +225,7 @@ END;
 GO
 
 --Test 
-EXEC dbo.GetAnzahlDefekteGeraeteJeRaum;
-GO
+--EXEC dbo.GetAnzahlDefekteGeraeteJeRaum;
 
 -- -------------------------------------------------------------
 -- Auswertung 9. Schulungsraum mit den meisten Geräten.
@@ -254,9 +250,8 @@ BEGIN
 END;
 GO
 
--- Test
-EXEC dbo.GetRaumMitMeistenGeraeten;
-GO
+-- Test:
+--EXEC dbo.GetRaumMitMeistenGeraeten;
 
 -- -------------------------------------------------------------
 -- Auswertung 10: Hersteller mit den meisten Geräten.
@@ -280,9 +275,9 @@ BEGIN
 END;
 GO
 
--- Test
-EXEC dbo.GetHerstellerMitMeistenGeraeten;
-GO
+-- Test:
+--EXEC dbo.GetHerstellerMitMeistenGeraeten;
+
 
 -- -------------------------------------------------------------
 -- Auswertung 11: Geräte, die vor einem bestimmten Datum angeschafft wurden.
@@ -318,9 +313,8 @@ END;
 GO
 
 -- Test
-EXEC dbo.GetGeraeteVorDatum
-    @Stichtag = '2020-01-01';
-GO
+--EXEC dbo.GetGeraeteVorDatum @Stichtag = '2020-01-01';
+
 
 -- -------------------------------------------------------------
 -- Auswertung 12 — Räume, die keinen bestimmten Gerätetyp besitzen.
@@ -356,13 +350,11 @@ BEGIN
 END;
 GO
 
--- Test
-EXEC dbo.GetRaeumeOhneGeraetetyp
-    @Geraetetyp = 'PC';
-GO
+-- Test:
+--EXEC dbo.GetRaeumeOhneGeraetetyp @Geraetetyp = 'PC';
 
 -- -------------------------------------------------------------
--- Auswertung 3.1 Welche Geräte sind derzeit in Reparatur?
+-- Auswertung 13 Geräte nach einem bestimmten Zustand.
 -- -------------------------------------------------------------
 CREATE OR ALTER PROCEDURE dbo.GetGeraeteNachZustand
 @Geraetezustand VARCHAR(60)
